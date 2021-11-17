@@ -33,7 +33,7 @@ public class Sheep : MonoBehaviour
     private void HitByHay()
     {
         sheepSpawner.RemoveSheepFromList(gameObject);   //  Removing sheep from list in SheepSpawner
-
+        SoundManager.Instance.PlaySheepHitClip();       //  Play sound
         Instantiate(heartPrefab, transform.position + new Vector3(0, heartOffset, 0), Quaternion.identity); //  Spawn flying heart
 
         hitByHay = true;
@@ -61,7 +61,7 @@ public class Sheep : MonoBehaviour
     private void Drop()
     {
         sheepSpawner.RemoveSheepFromList(gameObject);   //  Removing sheep from list in SheepSpawner
-
+        SoundManager.Instance.PlaySheepDroppedClip();   //  Play sound
         myRigidbody.isKinematic = false;
         myCollider.isTrigger = false;
         Destroy(gameObject, dropDestroyDelay);
