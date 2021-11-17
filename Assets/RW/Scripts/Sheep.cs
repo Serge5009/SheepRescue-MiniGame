@@ -14,6 +14,8 @@ public class Sheep : MonoBehaviour
 
     private SheepSpawner sheepSpawner;
 
+    public float heartOffset;
+    public GameObject heartPrefab;
 
     // Start is called before the first frame update
     private void Start()
@@ -32,10 +34,15 @@ public class Sheep : MonoBehaviour
     {
         sheepSpawner.RemoveSheepFromList(gameObject);   //  Removing sheep from list in SheepSpawner
 
+        Instantiate(heartPrefab, transform.position + new Vector3(0, heartOffset, 0), Quaternion.identity); //  Spawn flying heart
+
         hitByHay = true;
         runSpeed = 0;
 
-        Destroy(gameObject, gotHayDestroyDelay);
+        TweenScale tweenScale = gameObject.AddComponent<TweenScale>(); ;  //  Shrinking effect for ship
+        tweenScale.targetScale = 0;
+        tweenScale.timeToReachTarget = gotHayDestroyDelay;
+        tweenScale.timeToDestroy = gotHayDestroyDelay;
     }
 
     private void OnTriggerEnter(Collider other)
